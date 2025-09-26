@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Temp\\TestA\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|d:\\temp\\testa\\testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|solutionrelative:testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+      "AbsoluteMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|D:\\Temp\\TestA\\testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|solutionrelative:testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|d:\\temp\\testa\\testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|solutionrelative:testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+      "AbsoluteMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|d:\\temp\\testa\\testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{4C2793CA-5D58-4CA4-ACAA-FDE690A06C56}|TestA\\TestA.vbproj|solutionrelative:testa\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,25 +74,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.vb",
               "DocumentMoniker": "D:\\Temp\\TestA\\TestA\\Form1.vb",
               "RelativeDocumentMoniker": "TestA\\Form1.vb",
-              "ToolTip": "D:\\Temp\\TestA\\TestA\\Form1.vb*",
-              "RelativeToolTip": "TestA\\Form1.vb*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA9AAAAAAAAAA==",
+              "ToolTip": "D:\\Temp\\TestA\\TestA\\Form1.vb",
+              "RelativeToolTip": "TestA\\Form1.vb",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-09-26T02:07:19.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.vb [Design]",
               "DocumentMoniker": "D:\\Temp\\TestA\\TestA\\Form1.vb",
               "RelativeDocumentMoniker": "TestA\\Form1.vb",
-              "ToolTip": "D:\\Temp\\TestA\\TestA\\Form1.vb [Design]*",
-              "RelativeToolTip": "TestA\\Form1.vb [Design]*",
+              "ToolTip": "D:\\Temp\\TestA\\TestA\\Form1.vb [Design]",
+              "RelativeToolTip": "TestA\\Form1.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-09-26T02:02:57.022Z",
               "EditorCaption": " [Design]"
