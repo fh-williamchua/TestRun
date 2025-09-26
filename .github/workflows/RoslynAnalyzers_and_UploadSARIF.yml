@@ -29,9 +29,9 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\reports" -Force | Out-Null
           # Use msbuild for full .NET Framework solutions; OR use dotnet build for SDK-style:
-          msbuild "TestA.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog="$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif"
+          # msbuild "TestA.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog="$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif"
           # dotnet option (uncomment if you prefer):
-          # dotnet build "TestA.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog="$env:GITHUB_WORKSPACE/reports/roslyn-report.sarif"
+          dotnet build "TestA.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog="$env:GITHUB_WORKSPACE/reports/roslyn-report.sarif"
         shell: powershell
         continue-on-error: true
 
