@@ -31,4 +31,3 @@ D:\Temp\TestA\TestA\obj\Debug\TestA.vbproj.Up2Date
 D:\Temp\TestA\TestA\obj\Debug\TestA.exe
 D:\Temp\TestA\TestA\obj\Debug\TestA.xml
 D:\Temp\TestA\TestA\obj\Debug\TestA.pdb
-D:\Temp\TestA\TestA\obj\Debug\TestA.exe.config
