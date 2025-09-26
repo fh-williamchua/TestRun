@@ -1,4 +1,4 @@
-name: "Roslyn analyzers → SARIF"
+name: "Roslyn analyzers → SARIF (Windows runner)"
 
 on:
   push:
@@ -9,44 +9,50 @@ on:
 
 jobs:
   roslyn-sarif:
-    name: Run Roslyn analyzers and upload SARIF
-    runs-on: [self-hosted, windows, x64]   # adjust labels if your runner uses different labels
+    runs-on: [self-hosted, windows, x64]
     permissions:
-      actions: read
       contents: read
       security-events: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # --- (optional) choose one restore step depending on project style ---
-      - name: Restore NuGet packages (classic / packages.config projects)
-        if: always()
-        run: nuget restore "YourSolution.sln"
-        shell: pwsh
+      - name: Restore (classic/SDK)
+        run: |
+          nuget restore "TestA.sln"
+          dotnet restore "TestA.sln"
+        shell: powershell
 
-      #- name: Dotnet restore (SDK-style projects)
-      #  if: always()
-      #  run: dotnet restore "YourSolution.sln"
-      #  shell: pwsh
-
-      # Build and produce SARIF via MSBuild / ErrorLog
-      - name: Build solution and emit SARIF
+      - name: Build and emit SARIF
         id: build
         run: |
-          mkdir -Force reports
-          # If you use Visual Studio / MSBuild (classic .NET Framework or SDK-style on Windows):
-          msbuild "YourSolution.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog="$(System.DefaultWorkingDirectory)\reports\roslyn-report.sarif"
-          # Alternative for dotnet SDK projects:
-          # dotnet build "YourSolution.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog=reports/roslyn-report.sarif
-        shell: pwsh
+          # ensure folder exists
+          New-Item -ItemType Directory -Path reports -Force | Out-Null
 
-      # Upload SARIF to GitHub code scanning (runs even if build fails)
+          # Use MSBuild for full .NET Framework, dotnet for SDK-style projects
+          # MSBuild example:
+          msbuild "TestA.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog=reports\roslyn-report.sarif
+
+          # Alternative (uncomment if using SDK-style projects):
+          # dotnet build "TestA.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog=reports/roslyn-report.sarif
+        shell: powershell
+        continue-on-error: true
+
+      - name: Check for SARIF file
+        id: check
+        run: |
+          if (Test-Path reports\roslyn-report.sarif) {
+            "sarif_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          } else {
+            "sarif_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          }
+        shell: powershell
+
       - name: Upload SARIF to GitHub (Code scanning)
-        if: always()
+        if: steps.check.outputs.sarif_exists == 'true'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: reports/roslyn-report.sarif
