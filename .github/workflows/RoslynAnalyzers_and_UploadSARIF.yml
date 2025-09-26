@@ -22,7 +22,7 @@ jobs:
 
       - name: Restore (classic/SDK)
         run: |
-          nuget restore "TestA.sln"
+        #  nuget restore "TestA.sln"
           dotnet restore "TestA.sln"
         shell: powershell
 
