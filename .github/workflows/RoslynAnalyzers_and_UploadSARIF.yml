@@ -20,11 +20,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Restore (classic/SDK)
-        run: |
-        #  nuget restore "TestA.sln"
-          dotnet restore "TestA.sln"
-        shell: powershell
+      - name: Restore (SDK-style)
+  	run: dotnet restore "TestA.sln"
+  	shell: powershell
 
       - name: Build and emit SARIF
         id: build
