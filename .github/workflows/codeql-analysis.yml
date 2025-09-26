@@ -3,9 +3,9 @@ name: "CodeQL Scan"
 on:
   workflow_dispatch:  
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
   #schedule:
   #  - cron: '0 0 * * 0'   # Weekly scan
 
@@ -34,7 +34,7 @@ jobs:
 
     - name: Build solution
       run: |
-        msbuild YourSolution.sln /t:Rebuild /p:Configuration=Release
+        msbuild TestA.sln /t:Rebuild /p:Configuration=Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
