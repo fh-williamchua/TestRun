@@ -1,0 +1,40 @@
+name: "CodeQL Scan"
+
+on:
+  workflow_dispatch:  
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  #schedule:
+  #  - cron: '0 0 * * 0'   # Weekly scan
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: [self-hosted, W17]   # use your self-hosted runner
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]   # use C# extractor for VB.NET
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Build solution
+      run: |
+        msbuild YourSolution.sln /t:Rebuild /p:Configuration=Release
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
