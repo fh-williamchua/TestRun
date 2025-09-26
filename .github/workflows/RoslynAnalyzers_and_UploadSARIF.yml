@@ -2,9 +2,9 @@ name: "Roslyn analyzers → SARIF (Windows runner)"
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   pull_request:
-    branches: ["master"]
+    branches: ["master", "main"]
   workflow_dispatch:
 
 jobs:
@@ -21,28 +21,24 @@ jobs:
           fetch-depth: 0
 
       - name: Restore (SDK-style)
-  	run: dotnet restore "TestA.sln"
-  	shell: powershell
+        run: dotnet restore "TestA.sln"
+        shell: powershell
 
       - name: Build and emit SARIF
         id: build
         run: |
-          # ensure folder exists
-          New-Item -ItemType Directory -Path reports -Force | Out-Null
-
-          # Use MSBuild for full .NET Framework, dotnet for SDK-style projects
-          # MSBuild example:
-          msbuild "TestA.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog=reports\roslyn-report.sarif
-
-          # Alternative (uncomment if using SDK-style projects):
-          # dotnet build "TestA.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog=reports/roslyn-report.sarif
+          New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\reports" -Force | Out-Null
+          # Use msbuild for full .NET Framework solutions; OR use dotnet build for SDK-style:
+          msbuild "TestA.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog="$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif"
+          # dotnet option (uncomment if you prefer):
+          # dotnet build "TestA.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog="$env:GITHUB_WORKSPACE/reports/roslyn-report.sarif"
         shell: powershell
         continue-on-error: true
 
       - name: Check for SARIF file
         id: check
         run: |
-          if (Test-Path reports\roslyn-report.sarif) {
+          if (Test-Path "$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif") {
             "sarif_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
           } else {
             "sarif_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
