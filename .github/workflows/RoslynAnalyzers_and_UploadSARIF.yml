@@ -1,7 +1,6 @@
 name: "Roslyn analyzers → SARIF"
 
 on:
-  workflow_dispatch:
   push:
     branches: ["master"]
   pull_request:
