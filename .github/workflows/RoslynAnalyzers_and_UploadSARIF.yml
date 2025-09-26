@@ -1,0 +1,53 @@
+name: "Roslyn analyzers → SARIF"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  roslyn-sarif:
+    name: Run Roslyn analyzers and upload SARIF
+    runs-on: [self-hosted, windows, x64]   # adjust labels if your runner uses different labels
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # --- (optional) choose one restore step depending on project style ---
+      - name: Restore NuGet packages (classic / packages.config projects)
+        if: always()
+        run: nuget restore "YourSolution.sln"
+        shell: pwsh
+
+      #- name: Dotnet restore (SDK-style projects)
+      #  if: always()
+      #  run: dotnet restore "YourSolution.sln"
+      #  shell: pwsh
+
+      # Build and produce SARIF via MSBuild / ErrorLog
+      - name: Build solution and emit SARIF
+        id: build
+        run: |
+          mkdir -Force reports
+          # If you use Visual Studio / MSBuild (classic .NET Framework or SDK-style on Windows):
+          msbuild "YourSolution.sln" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog="$(System.DefaultWorkingDirectory)\reports\roslyn-report.sarif"
+          # Alternative for dotnet SDK projects:
+          # dotnet build "YourSolution.sln" -c Release -p:RunAnalyzers=true -p:ErrorLog=reports/roslyn-report.sarif
+        shell: pwsh
+
+      # Upload SARIF to GitHub code scanning (runs even if build fails)
+      - name: Upload SARIF to GitHub (Code scanning)
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/roslyn-report.sarif
