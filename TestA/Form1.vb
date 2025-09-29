@@ -5,16 +5,18 @@
         _counter += 1
         txtResult.Text = txtResult.Text & _counter.ToString()
 
-        Console.WriteLin("Test")
+        MessageBox.Show(txtResult.Text, "Current Text", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        txtResult.Text = String.Empty
-
-        Dim sTest As String
+        Dim sTest As String = String.Empty
         txtResult.Text = sTest
 
-        'Infinite loop
-        ' TODO: add any required follow-up logic here without blocking the UI thread.
+        Dim i As Integer = 0
+        While i < 1
+            _counter += 1
+            txtResult.Text = txtResult.Text & _counter.ToString()
+            MessageBox.Show(txtResult.Text, "Current Text", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End While
     End Sub
 End Class

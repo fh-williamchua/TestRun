@@ -9,3 +9,5 @@
 *.vbproj.user
 *.csproj.user
 *.exclude
+TestA/bin/
+TestA/obj/
