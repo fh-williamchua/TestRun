@@ -39,12 +39,7 @@ jobs:
 
           # candidate paths for VsDevCmd.bat (adjust if you use other VS edition/location)
           $candidates = @(
-            "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\Tools\VsDevCmd.bat",
-            "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat",
-            "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat",
-            "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools\VsDevCmd.bat",
-            "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat",
-            "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\Tools\VsDevCmd.bat"
+            "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\Tools\VsDevCmd.bat"
           )
 
           $vs = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
@@ -69,7 +64,7 @@ jobs:
             Write-Host "Restore returned exit code $LASTEXITCODE (continuing to attempt build for diagnostics)."
           }
 
-          & cmd /c "`"$vs`" && msbuild `"$sln`" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog=`"$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif`""
+          & cmd /c "`"$vs`" && msbuild `"$sln`" /t:Rebuild /p:Configuration=Release /p:RunAnalyzers=true /p:ErrorLog=`"$env:GITHUB_WORKSPACE\reports\roslyn-report.sarif,version=2.1`""
           $msbuildExit = $LASTEXITCODE
           Write-Host "MSBuild exited with code $msbuildExit"
           # don't fail here so we can still upload artifact/inspect file. The job will reflect failure if non-zero.
