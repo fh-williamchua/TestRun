@@ -8,5 +8,8 @@
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         txtResult.Text = String.Empty
+
+        Dim sTest As String
+        txtResult.Text = sTest
     End Sub
 End Class
