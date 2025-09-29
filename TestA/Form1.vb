@@ -15,9 +15,6 @@
         txtResult.Text = sTest
 
         'Infinite loop
-        While True
-            Dim i As Integer = 0
-            i += 1
-        End While
+        ' TODO: add any required follow-up logic here without blocking the UI thread.
     End Sub
 End Class
