@@ -42,10 +42,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]   # use C# extractor for VB.NET
-        #include:
-        #- language: 'actions'
-        #  build-mode: none
+        #language: [ 'csharp' ]   # use C# extractor for VB.NET
+        include:
+        - language: 'actions'
+          build-mode: none
         # CodeQL supports the following values keywords for 'language': 'actions', 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'rust', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
