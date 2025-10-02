@@ -5,7 +5,7 @@
         _counter += 1
         txtResult.Text = txtResult.Text & _counter.ToString()
 
-        MessageBox.Show(txtResult.Text, "Current Text", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(txtResult.Text, "Current Text", MessageBoxButtons.OK, MessageBoxIcon.Informatio)
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
